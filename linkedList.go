@@ -3,7 +3,7 @@
 *   @version 0.1
 */
 
-package main
+package linkedlist
 
 import "fmt"
 
@@ -43,7 +43,7 @@ func newCell(x int, nextcell *Cell) *Cell {
 *   @param
 *   @return llst 生成したLinkedList構造体
 */
-func newLinkedList() *LinkedList {
+func NewLinkedList() *LinkedList {
     var llst = new(LinkedList)
     llst.top = new(Cell)
     return llst
@@ -71,7 +71,7 @@ func (cell *Cell) search(index int) *Cell {
 *   @param index index番目
 *   @return target.value if 値があれば or nil if Cellがなければ
 */
-func (llst *LinkedList) get(index int) int {
+func (llst *LinkedList) Get(index int) int {
     targetcell := llst.top.search(index)
     if targetcell == nil {
         return 0
@@ -85,7 +85,7 @@ func (llst *LinkedList) get(index int) int {
 *   @param x 挿入したい値
 *   @return true if 成功したら or false 失敗したら
 */
-func (llst *LinkedList) insert(index int, x int) bool {
+func (llst *LinkedList) Insert(index int, x int) bool {
     prevcell := llst.top.search(index-1)
     nextcell := prevcell.next
     if prevcell == nil {
@@ -101,7 +101,7 @@ func (llst *LinkedList) insert(index int, x int) bool {
 *   @param index index番目
 *   @return true if 成功したら or false 失敗したら
 */
-func (llst *LinkedList) delete(index int) bool {
+func (llst *LinkedList) Delete(index int) bool {
     prevcell := llst.top.search(index-1)
     if prevcell == nil || prevcell.next == nil{
         return false
@@ -115,7 +115,7 @@ func (llst *LinkedList) delete(index int) bool {
 *   @param
 *   @return 要素数
 */
-func (llst *LinkedList) size() int {
+func (llst *LinkedList) Size() int {
     cell := llst.top.search(1)
     var i = 0
     for cell != nil {
@@ -130,28 +130,11 @@ func (llst *LinkedList) size() int {
 *   @param
 *   @return
 */
-func (llst *LinkedList) showAll() {
+func (llst *LinkedList) ShowAll() {
     cell := llst.top.search(1)
     for cell != nil {
         fmt.Printf("%d, ", cell.value)
         cell = cell.next
     }
     fmt.Println("")
-}
-
-func main() {
-    llst := newLinkedList()
-    fmt.Println("Start insert")
-    for i := 0; i < 10; i++ {
-        fmt.Println(llst.insert(i, i))
-    }
-    fmt.Println("Finish insert")
-    llst.showAll()
-    fmt.Println(llst.size())
-    fmt.Println(llst.get(4))
-    for llst.size() != 0 {
-        llst.delete(0)
-        llst.showAll()
-    }
-    fmt.Println("Delete all")
 }
